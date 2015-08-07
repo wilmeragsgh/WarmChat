@@ -57,12 +57,12 @@ cleanSet<- function(word){
   dtm <- TermDocumentMatrix(word1)
   
   ## @knitr removing_sparse_terms
-  dtm2 <- removeSparseTerms(dtm, 0.99)
+  dtm2 <- removeSparseTerms(dtm, 0.85)
   
   ## @knitr finding_freqterms
-  freq <- findFreqTerms(dtm,5)
+  freq <- findFreqTerms(dtm,20)
   
   return(freq)
 }
 
-#cleanSet(w)
+cleanSet(word)
