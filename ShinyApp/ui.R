@@ -55,7 +55,7 @@ shinyUI( navbarPage("Data Mining Project",
           # Create a spot for a dynamic UI containing the list of users.
           uiOutput("userList"),
           tags$hr(),
-          helpText(HTML("<p>Built using R & <a href = \"http://rstudio.com/shiny/\">Shiny</a>.<p>Source code available <a href =\"https://github.com/trestletech/ShinyChat\">on GitHub</a>."))
+          helpText(HTML("<p>Built using R & <a href = \"http://rstudio.com/shiny/\">Shiny</a>.<p>Source code available <a href =\"https://github.com/wilmeragsgh/Flame_Detector_Chat\">on GitHub</a>."))
         )
       )
     )
