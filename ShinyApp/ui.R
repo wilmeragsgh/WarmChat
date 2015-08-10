@@ -1,6 +1,6 @@
 library(shiny)
 
-shinyUI( navbarPage("Proyecto de Minería",
+shinyUI( navbarPage("Data Mining Project",
   tabPanel("Chat Room",
   bootstrapPage(
     # We'll add some custom CSS styling -- totally optional
@@ -62,17 +62,20 @@ shinyUI( navbarPage("Proyecto de Minería",
   )
   ),tabPanel("What we do", 
              navlistPanel(
-               "Fase",
-               tabPanel("Limpieza",
-                        h3("Actividades")
+               "Readme",
+               tabPanel("Cleaning",
+                        h3("To-do's"),tags$li("Tolowering all words"),tags$li("Removing punctuations marks"),tags$li("Removing numbers"),tags$li("Stripping white spaces")
                ),
-               tabPanel("Caracterización",
-                        h3("Actividades")
+               tabPanel("Information Retrieval",
+                        h3("To-do's"),tags$li("Definning the necessarily datasets for the")
                ),
-               "-----",
-               tabPanel("Clasificación",
-                        h3("Actividades")
+               tabPanel("Classification",
+                        h3("To-do's"),tags$li("Creating bi-grams based on seconds pronouns and negations-words")
                         
+               ),"-----",
+               tabPanel("Limits",
+               				 h3("Some Recommendations"),tags$li("Our first(for documentations) limits is the language,so we can understand only english(for now)"),tags$li("We don't get the question structure so if you ment some, we get just the words that contains(for now)"),tags$li("Our model it's a SUPER-SARCASM_DETECTOR(not). . . So we classify only literality"),tags$li("Although we don't recommend insulting if going to do it, do it well(so we classify better)")
+               				 
                )
              )
 ))

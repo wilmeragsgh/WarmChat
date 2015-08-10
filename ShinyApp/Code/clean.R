@@ -17,16 +17,14 @@ cleanComm<-function(word){
   ## @knitr steming_doc
   word <- stemDocument(word)
   word <- stemCompletion(word,dictionary=wordn)
-  return(as.character(wordn))
+  return(as.character(word))
 }
-
-word <- as.character(train[train$Insult == 1,]$Comment)
 
 # Preprocesamiento de los datos 
 cleanSet<- function(word){
   
   ## @knitr encoding_input
-  enc2utf8(word)
+  #enc2utf8(word)
   
   ## @knitr creating_corpus
   vs <- VectorSource(word)
@@ -56,13 +54,6 @@ cleanSet<- function(word){
 
   dtm <- TermDocumentMatrix(word1)
   
-  ## @knitr removing_sparse_terms
-  dtm2 <- removeSparseTerms(dtm, 0.85)
-  
-  ## @knitr finding_freqterms
-  freq <- findFreqTerms(dtm,20)
-  
-  return(freq)
+  return(dtm)
 }
 
-cleanSet(word)

@@ -15,6 +15,11 @@
   color: #226;
 }
 
+.note {
+  font-weight: bold;
+  color: #FF9999;   
+}
+
 #entry {
   width: 100%;
 }

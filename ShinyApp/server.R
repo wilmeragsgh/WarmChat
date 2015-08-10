@@ -1,10 +1,6 @@
 library(shiny)
 library(stringr)
 
-source("Code/libs.R")
-source("Code/load.R")
-source("Code/clean.R")
-
 # Globally define a place where all users can share some reactive data.
 vars <- reactiveValues(chat=NULL, users=NULL)
 
@@ -83,10 +79,47 @@ shinyServer(function(input, output, session) {
       return()
     }
     isolate({
-      # Add the current entry to the chat log.
-      #print(input$entry)
-      a <- cleanComm(input$entry)
-      print(a)
+    	source("Code/do.R")
+    	# important code
+    	you_var <-c("you","your","ur","u","youre")
+    	no_var <- c("not","no","dont","arent")
+    	
+    	comm <- input$entry
+    	comm <- cleanComm(comm)
+    	comm <- splitting(comm)
+    	
+    	
+    	if(sum(comm %in% no_var)>0){
+    		no_pos <- min(which(comm %in% no_var))
+    		comm[no_pos]<-"not"
+    		for(i in (no_pos+1):length(comm)){
+    			comm[i] <- paste(comm[no_pos],comm[i],sep="-")
+    		}
+    	}
+    	insult <- 0
+    	you_badword<- paste("you",badwords,sep= "-")
+    	
+    	if(sum(comm %in% you_var)>0){
+    		you_pos <- min(which(comm %in% you_var))
+    		comm[you_pos]<-"you"
+    		for(i in (you_pos+1):length(comm)){
+    			comm[i] <- paste(comm[you_pos],comm[i],sep="-")
+    		}
+    		if(sum(comm %in% you_badword)>0){
+    			insult <- insult + 1
+    		}
+    	}
+    	if(sum(comm %in% badwords)>0){
+    		insult <- insult + 1
+    	}
+    	
+    	if(insult>0){
+    		note <- "flame"
+    	}else{
+    		note <- ""
+    	}
+    	# important code above
+    	# Add the current entry to the chat log.
       if(sessionVars$username == ""){
         vars$chat <<- c(vars$chat, 
                         paste0(linePrefix(),
@@ -94,7 +127,7 @@ shinyServer(function(input, output, session) {
                                          tags$abbr(title=Sys.time(), "Anonymous")
                                ),
                                ": ",
-                               tagList(input$entry)))
+                               tagList(input$entry),tags$span(class="note"," ",note)))
       }else {
       vars$chat <<- c(vars$chat, 
                       paste0(linePrefix(),
@@ -102,7 +135,7 @@ shinyServer(function(input, output, session) {
                           tags$abbr(title=Sys.time(), sessionVars$username)
                         ),
                         ": ",
-                        tagList(input$entry)))}
+                        tagList(input$entry),tags$span(class="note"," ",note)))}
     })
     # Clear out the text entry field.
     updateTextInput(session, "entry", value="")
