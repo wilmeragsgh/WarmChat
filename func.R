@@ -1,5 +1,3 @@
-# Declaracion de funciones requeridas en el proyecto
-
 ## @knitr sep_pal
 ## Definicion de una funcion encargada de generar una arreglo con las palabras pertencientes al mismo comentario
 splitting <-function(data){

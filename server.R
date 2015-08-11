@@ -1,5 +1,7 @@
-library(shiny)
-library(stringr)
+source("libs.R")
+source("load.R")
+source("func.R")
+source("clean.R")
 
 # Globally define a place where all users can share some reactive data.
 vars <- reactiveValues(chat=NULL, users=NULL)
@@ -79,7 +81,6 @@ shinyServer(function(input, output, session) {
       return()
     }
     isolate({
-    	source("Code/do.R")
     	# important code
     	you_var <-c("you","your","ur","u","youre")
     	no_var <- c("not","no","dont","arent")
@@ -87,7 +88,6 @@ shinyServer(function(input, output, session) {
     	comm <- input$entry
     	comm <- cleanComm(comm)
     	comm <- splitting(comm)
-    	
     	
     	if(sum(comm %in% no_var)>0){
     		no_pos <- min(which(comm %in% no_var))
@@ -109,6 +109,7 @@ shinyServer(function(input, output, session) {
     			insult <- insult + 1
     		}
     	}
+    	
     	if(sum(comm %in% badwords)>0){
     		insult <- insult + 1
     	}
@@ -148,7 +149,7 @@ shinyServer(function(input, output, session) {
       vars$chat <- vars$chat[(length(vars$chat)-500):(length(vars$chat))]
     }
     # Save the chat object so we can restore it later if needed.
-    saveRDS(vars$chat, "chat.Rds")
+    saveRDS(vars$chat, "app/chat.Rds")
     
     # Pass the chat log through as HTML
     HTML(vars$chat)

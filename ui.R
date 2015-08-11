@@ -4,23 +4,23 @@ shinyUI( navbarPage("Data Mining Project",
   tabPanel("Chat Room",
   bootstrapPage(
     # We'll add some custom CSS styling -- totally optional
-    includeCSS("shinychat.css"),
+    includeCSS("app/shinychat.css"),
     
     # And custom JavaScript -- just to send a message when a user hits "enter"
     # and automatically scroll the chat window for us. Totally optional.
-    includeScript("sendOnEnter.js"),
+    includeScript("app/sendOnEnter.js"),
     
     div(
       # Setup custom Bootstrap elements here to define a new layout
       class = "container-fluid", 
       div(class = "row-fluid",
           # Set the page title
-          tags$head(tags$title("ShinyChat")),
+          tags$head(tags$title("FlameChatDetector")),
           
           # Create the header
           div(class="span6", style="padding: 10px 0px;",
-              h1("Will do you hurt?"), 
-              h4("kinder than IRC...")
+              h1("FlameChatDetector"), 
+              h4("Friendly than IRC...")
           ), div(class="span6", id="play-nice",
             "Be a decent human being."
           )
