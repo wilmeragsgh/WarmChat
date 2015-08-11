@@ -1,6 +1,6 @@
 cleanComm<-function(word){
   
-  Encoding(word) <-"utf8"
+	enc2utf8(word)
   
   ## @knitr to_lowering
   word<- tolower(word)
@@ -15,8 +15,8 @@ cleanComm<-function(word){
   wordn <- stripWhitespace(word)
 
   ## @knitr steming_doc
-  word <- stemDocument(word)
-  word <- stemCompletion(word,dictionary=wordn)
+  #word <- stemDocument(word)
+  #word <- stemCompletion(word,dictionary=wordn)
   return(as.character(word))
 }
 
@@ -57,3 +57,14 @@ cleanSet<- function(word){
   return(dtm)
 }
 
+## Definicion de una funcion encargada de generar una arreglo con las palabras pertencientes al mismo comentario
+splitting <-function(data){
+  val <- matrix()
+  j <- 1
+  for(i in data){
+    val <- unlist(strsplit(as.character(i), "[ ]"))    
+    j <- j+1
+  }
+  val
+}
+## @knitr end_chunk

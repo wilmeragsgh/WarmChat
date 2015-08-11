@@ -15,11 +15,11 @@ shinyUI( navbarPage("Data Mining Project",
       class = "container-fluid", 
       div(class = "row-fluid",
           # Set the page title
-          tags$head(tags$title("FlameChatDetector")),
+          tags$head(tags$title("WarmChat")),
           
           # Create the header
           div(class="span6", style="padding: 10px 0px;",
-              h1("FlameChatDetector"), 
+              h1("WarmChat"), 
               h4("Friendly than IRC...")
           ), div(class="span6", id="play-nice",
             "Be a decent human being."
@@ -62,7 +62,7 @@ shinyUI( navbarPage("Data Mining Project",
   )
   ),tabPanel("What we do", 
              navlistPanel(
-               "Readme",
+               "Tasks",
                tabPanel("Cleaning",
                         h3("To-do's"),tags$li("Tolowering all words"),tags$li("Removing punctuations marks"),tags$li("Removing numbers"),tags$li("Stripping white spaces")
                ),

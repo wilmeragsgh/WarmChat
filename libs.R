@@ -7,6 +7,6 @@ install = function(pkg){
   }
 }
 install("foreach")
-libs = c("tm", "rvest","caret","SnowballC","shiny","stringr")
+libs = c("tm", "rvest","caret","SnowballC","shiny","stringr","RTextTools","maxent")
 foreach(i = libs) %do% install(i)
 rm(libs,i,install)

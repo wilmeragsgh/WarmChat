@@ -1,0 +1,17 @@
+{
+    "contents" : "# Carga de librerias necesarias \ninstall = function(pkg){\n  #Si ya est? instalado, no lo instala.\n  if (!require(pkg, character.only = TRUE)) {\n    install.packages(pkg)\n    if (!require(pkg, character.only = TRUE)) stop(paste(\"load failure:\", pkg))\n  }\n}\ninstall(\"foreach\")\nlibs = c(\"tm\", \"rvest\",\"caret\",\"SnowballC\",\"shiny\",\"stringr\",\"RTextTools\",\"maxent\")\nforeach(i = libs) %do% install(i)\nrm(libs,i,install)",
+    "created" : 1439330097276.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "3588434104",
+    "id" : "47E7A41C",
+    "lastKnownWriteTime" : 1439330182,
+    "path" : "C:/Users/wilmer g/Desktop/DM/WarmChat/libs.R",
+    "project_path" : "libs.R",
+    "properties" : {
+    },
+    "relative_order" : 7,
+    "source_on_save" : false,
+    "type" : "r_source"
+}
