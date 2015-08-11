@@ -1,4 +1,3 @@
-source("libs.R")
 source("load.R")
 source("func.R")
 source("clean.R")
