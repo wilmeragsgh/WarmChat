@@ -2,11 +2,32 @@ cleanComm<-function(word){
   
 	enc2utf8(word)
   
+  ## @knitr removing_reps
+  gsub("[:alnum:]{2,}","\\1",word)
+  
+  ## @knitr isolating_punc
+  gsub(","," , ",word)
+  gsub("."," . ",word)
+  gsub("?"," ? ",word)
+  
+  ## @knitr numstolett
+  gsub("1","i",word)
+  gsub("5","s",word)
+  gsub("4","for",word)
+  gsub("1","i",word)
+  gsub("&","and",word)
+  gsub("$","s",word)
+  gsub("0","o",word)
+  
+    
   ## @knitr to_lowering
   word<- tolower(word)
 
   ## @knitr removing_punctuations
-  word<- removePunctuation(word)
+  punctuseless<- c("!"," \"", "#", "$", "\%" ,"\&","\'","(", ")","*","+","-", "/",":",";","<","=", ">", "@" ,"[" ,"\\" ,"]", "^","_", "`" ,"{" ,"|" ,"}","~")
+  for(i in punctuseless){
+    gsub(i,"",word)
+  }
   
   ## @knitr removing_number
   word <- removeNumbers(word)
@@ -14,48 +35,38 @@ cleanComm<-function(word){
   ## @knitr removing_whitespaces
   wordn <- stripWhitespace(word)
 
-  ## @knitr steming_doc
-  #word <- stemDocument(word)
-  #word <- stemCompletion(word,dictionary=wordn)
-  return(as.character(word))
+  return(as.character(wordn))
 }
 
 # Preprocesamiento de los datos 
-cleanSet<- function(word){
+#cleanSet<- function(word){
   
   ## @knitr encoding_input
-  #enc2utf8(word)
+#  enc2utf8(word)
   
-  ## @knitr creating_corpus
-  vs <- VectorSource(word)
+  ## @knitr removing_html
+#  gsub("<.*?>", "", word)
   
-  txt <- Corpus(vs)
-  rm("vs")
+  ## @knitr removing_urls
+#  gsub("http[[:alnum:][:punct:]]*", "", word)
+  
+  ## @knir removing_rep
+#  word <- paste(rle(strsplit(word, "")[[1]])$values, collapse="")
   
   ## @knitr to_lowering
-  txtlc <- tm_map(txt, content_transformer(tolower))
-  rm("txt")
+#  word<- tolower(word)
+  
   ## @knitr removing_punctuations
-  txtnp <- tm_map(txtlc, content_transformer(removePunctuation))
-  rm("txtlc")
+#  word<- removePunctuation(word)
+  
   ## @knitr removing_number
-  txtnn <- tm_map(txtnp, content_transformer(removeNumbers))
-  rm("txtnp")
-  stopwords <- c("a", "about", "above", "above", "across", "after", "afterwards", "again", "against", "all", "almost", "alone", "along", "already", "also","although","always","am","among", "amongst", "amoungst", "amount",  "an", "and", "another", "any","anyhow","anyone","anything","anyway", "anywhere", "are", "around", "as",  "at", "back","be","became", "because","become","becomes", "becoming", "been", "before", "beforehand", "behind", "being", "below", "beside", "besides", "between", "beyond", "bill", "both", "bottom","but", "by", "call", "can", "cannot", "cant", "co", "con", "could", "couldnt", "cry", "de", "describe", "detail", "do", "done", "down", "due", "during", "each", "eg", "eight", "either", "eleven","else", "elsewhere", "empty", "enough", "etc", "even", "ever", "every", "everyone", "everything", "everywhere", "except", "few", "fifteen", "fify", "fill", "find", "fire", "first", "five", "for", "former", "formerly", "forty", "found", "four", "from", "front", "full", "further", "get", "give", "go", "had", "has", "hasnt", "have", "he", "hence", "her", "here", "hereafter", "hereby", "herein", "hereupon", "hers", "herself", "him", "himself", "his", "how", "however", "hundred", "ie", "if", "in", "inc", "indeed", "interest", "into", "is", "it", "its", "itself", "keep", "last", "latter", "latterly", "least", "less", "ltd", "made", "many", "may", "me", "meanwhile", "might", "mill", "mine", "more", "moreover", "most", "mostly", "move", "much", "must", "my", "myself", "name", "namely", "neither", "never", "nevertheless", "next", "nine", "no", "nobody", "none", "noone", "nor", "not", "nothing", "now", "nowhere", "of", "off", "often", "on", "once", "one", "only", "onto", "or", "other", "others", "otherwise", "our", "ours", "ourselves", "out", "over", "own","part", "per", "perhaps", "please", "put", "rather", "re", "same", "see", "seem", "seemed", "seeming", "seems", "serious", "several", "she", "should", "show", "side", "since", "sincere", "six", "sixty", "so", "some", "somehow", "someone", "something", "sometime", "sometimes", "somewhere", "still", "such", "system", "take", "ten", "than", "that", "the", "their", "them", "themselves", "then", "thence", "there", "thereafter", "thereby", "therefore", "therein", "thereupon", "these", "they", "thickv", "thin", "third", "this", "those", "though", "three", "through", "throughout", "thru", "thus", "to", "together", "too", "top", "toward", "towards", "twelve", "twenty", "two", "un", "under", "until", "up", "upon", "us", "very", "via", "was", "we", "well", "were", "what", "whatever", "when", "whence", "whenever", "where", "whereafter", "whereas", "whereby", "wherein", "whereupon", "wherever", "whether", "which", "while", "whither", "who", "whoever", "whole", "whom", "whose", "why", "will", "with", "within", "without", "would", "yet", "you", "your", "yours", "yourself", "yourselves", "the")
-  withoutstop <- tm_map(txtnn, content_transformer(function(x) removeWords(x,stopwords)))
+#  word <- removeNumbers(word)
   
   ## @knitr removing_whitespaces
-  txtnspc <- tm_map(withoutstop, content_transformer(stripWhitespace))
-  rm("txtnn","withoutstop")
-  ## @knitr steming_doc
-  txtstem <- tm_map(txtnspc, content_transformer(stemDocument))
+#  wordn <- stripWhitespace(word)
   
-  word1 <- tm_map(txtstem, content_transformer(PlainTextDocument))
-
-  dtm <- TermDocumentMatrix(word1)
-  
-  return(dtm)
-}
+#  return(as.character(wordn))
+#}
 
 ## Definicion de una funcion encargada de generar una arreglo con las palabras pertencientes al mismo comentario
 splitting <-function(data){

@@ -35,12 +35,11 @@
 
 #####---------- [1] Predicts just a comment ----------#####
 
-
 ### Makes corpora
 # Function to predict a comment ~ it needs the dtm used to calculate the max-ent model and the max-ent model itself
 maxent_predict <-function(comm){
   ### Training model
-  #corpus <- Corpus(VectorSource(cleanComm(as.character(train$Comment))))
+  #corpus <- Corpus(VectorSource(train$Comment))
   
   ### Builds a term-document matrix
   
@@ -53,89 +52,28 @@ maxent_predict <-function(comm){
   #sparse <- as.compressed.matrix(matrix)
   #modelMAXENT <- maxent(sparse[1:nrow(train),], as.factor(train$Insult)[1:nrow(train)])
   #save(modelMAXENT,file = "maxentFit.Rdata")
-  load("maxentFit.Rdata")
   ### Predicts  
-  testdata <- as.matrix(comm)
+  testdata <- comm
   predCorpus <- Corpus(VectorSource(testdata))
   predMatrix <- DocumentTermMatrix(predCorpus, list(dictionary = Terms(matrix)))
   predSparse <- as.compressed.matrix(predMatrix)
   
   # Predicts
-  resultModel <- predict(modelMAXENT, predSparse[1:nrow(testdata),])
+  resultModel <- predict(modelMAXENT, predSparse[1,])
   result <- as.numeric(resultModel[,3])
   
-  if(result > 0.65){
+  if(result > 0.9){
     return(1)
   } else {
     return(0)
   }
 }
 
-# r <- c()
-# for(i in 1:length(train$Comment)){
-#	 r[i]=maxent_predict(as.character(train$Comment[i]))
-# }
-# train1 <-cbind(train,maxent =r)
-# table(train1$Insult,train1$maxent)
-# library("caret")
-# confusionMatrix(train1$Insult,train1$maxent)
-
-#####---------- [2] Predicts a subset of all.traindata (cv: CROSS-VALIDATION) ----------#####
-
-
-# Function that split a data frame into two subsets of the same size
-#splitdf <- function(dataframe, seed=NULL) {
-#  if (!is.null(seed)) set.seed(seed)
-#  index <- 1:nrow(dataframe)
-#  trainindex <- sample(index, trunc(length(index)/2))
-#  trainset <- dataframe[trainindex,]
-#  testset <- dataframe[-trainindex,]
-#  list(trainset = trainset, testset = testset)
-#}
-
-# Calls the function and obtain train data and test data
-#splits <- splitdf(all.traindata, seed = 666)
-#traindata <- splits$trainset
-#testdata <- splits$testset
-
-### Makes corpora
-
-#corpus.cv <- Corpus(VectorSource(traindata$Comment))
-
-### Cleans corpora
-
-#corpus <- tm_map(corpus, removePunctuation)                  # THIS DOESNT AFFECT THE ACCURACY !!  
-#corpus <- tm_map(corpus, stripWhitespace)                    # THIS DOESNT AFFECT THE ACCURACY !!
-#corpus <- tm_map(corpus, content_transformer(tolower))       # THIS DOESNT AFFECT THE ACCURACY !!
-#corpus <- tm_map(corpus, removeWords, stopwords('english'))  # THIS REDUCES THE ACCURACY !! 
-#corpus <- tm_map(corpus, stemDocument, lazy = TRUE)          # FUCKS THE DocumentTermMatrix !!
-
-### Builds a term-document matrix
-
-#matrix.cv <- DocumentTermMatrix(corpus.cv)
-# 10 most frequent words
-#findFreqTerms(matrix.cv, 10)
-
-### Creates a MAXENT model [package: 'maxent']
-
-#sparse.cv <- as.compressed.matrix(matrix.cv)
-#modelMAXENT.cv <- maxent(sparse.cv[1:nrow(traindata),], as.factor(traindata$Insult)[1:nrow(traindata)])
-
-### Predicts
-
-# Prepares data to be predicted
-#predCorpus.cv <- Corpus(VectorSource(testdata$Comment))
-#predMatrix.cv <- DocumentTermMatrix(predCorpus.cv, list(dictionary = Terms(matrix.cv)))
-#predSparse.cv <- as.compressed.matrix(predMatrix.cv)
-  
-# Predicts
-#resultModel.cv <- predict(modelMAXENT.cv, predSparse.cv[1:nrow(testdata),])
-#result.cv <- cbind.data.frame(Comment = testdata, Probability = as.numeric(resultModel.cv[,3]))
-#result.cv$Class <- lapply(result.cv$Probability, is.insult)
-
-### Calculates accuracy and confusion matrix
-
-#recall_accuracy(testdata$Insult[1:nrow(testdata)], result.cv$Probability)
-
-#confusionMatrix(testdata$Insult, unlist(result.cv$Class))
-
+ r <- c()
+ for(i in 1:length(train$Comment)){
+	 r[i]=maxent_predict(train$Comment[i])
+ }
+ train1 <-cbind(train,maxent =r)
+ table(train1$Insult,train1$maxent)
+ library("caret")
+ confusionMatrix(train1$Insult,train1$maxent)

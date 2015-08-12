@@ -1,0 +1,17 @@
+{
+    "contents" : "#######################################################################################################\n#\n#             DETECCIÓN DE INSULTOS USANDO UN CLASIFICADOR DE MÁXIMA ENTROPÍA \n#\n# Este código se divide en dos partes:\n#\n#     [1]: Predicción de un comentario \n#          - Se entrena el modelo usando toda la data de train.csv\n#          - Se usa una función que recibe como argumento un comentario ingresado por teclado \n#          - La función devuelve la probabilidad de que el comentario sea insulto\n#\n#     [2]: Validación Cruzada\n#          - Se entrena el modelo usando una muestra aleatoria igual a la mitad de train.csv \n#          - Se predice usando la otra mitad de la data\n#          - Se calcula la precisión\n#\n# Observaciones: - Precisión aproximada: 0.75 ~ Sin preprocesar la data\n#                - Solo considera la frecuencia de las palabras (por ahora)\n#                - Información de la sesión:\n#                                             R version 3.2.1 (2015-06-18)\n#                                             Platform: i686-pc-linux-gnu (32-bit)\n#                                             Running under: Ubuntu precise (12.04.5 LTS)\n#\n######################################################################################################\n\n#library(RTextTools)  # RTextTools_1.4.0\n#library(tm)          # tm_0.5-10\n#library(maxent)      # maxent_1.3.3.1\n#library(caret)       # caret_6.0-52\n\n### Gets the data\n\n# load(\"/data/data.Rdata\")\n\n\n#####---------- [1] Predicts just a comment ----------#####\n\n### Makes corpora\n# Function to predict a comment ~ it needs the dtm used to calculate the max-ent model and the max-ent model itself\nmaxent_predict <-function(comm){\n  ### Training model\n  #corpus <- Corpus(VectorSource(train$Comment))\n  \n  ### Builds a term-document matrix\n  \n  #matrix <- DocumentTermMatrix(corpus)\n  # 10 most frequent words\n  #findFreqTerms(matrix, 10)\n  \n  ### Creates a MAXENT model [package: 'maxent']\n  \n  #sparse <- as.compressed.matrix(matrix)\n  #modelMAXENT <- maxent(sparse[1:nrow(train),], as.factor(train$Insult)[1:nrow(train)])\n  #save(modelMAXENT,file = \"maxentFit.Rdata\")\n  ### Predicts  \n  testdata <- comm\n  predCorpus <- Corpus(VectorSource(testdata))\n  predMatrix <- DocumentTermMatrix(predCorpus, list(dictionary = Terms(matrix)))\n  predSparse <- as.compressed.matrix(predMatrix)\n  \n  # Predicts\n  resultModel <- predict(modelMAXENT, predSparse[1,])\n  result <- as.numeric(resultModel[,3])\n  \n  if(result > 0.9){\n    return(1)\n  } else {\n    return(0)\n  }\n}\n\n r <- c()\n for(i in 1:length(train$Comment)){\n\t r[i]=maxent_predict(train$Comment[i])\n }\n train1 <-cbind(train,maxent =r)\n table(train1$Insult,train1$maxent)\n library(\"caret\")\n confusionMatrix(train1$Insult,train1$maxent)\n",
+    "created" : 1439328889545.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "3753372526",
+    "id" : "776616EF",
+    "lastKnownWriteTime" : 1439362281,
+    "path" : "C:/Users/wilmer g/Desktop/DM/WarmChat/models/maxent_model.r",
+    "project_path" : "models/maxent_model.r",
+    "properties" : {
+    },
+    "relative_order" : 6,
+    "source_on_save" : false,
+    "type" : "r_source"
+}

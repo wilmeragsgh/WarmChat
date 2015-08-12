@@ -1,7 +1,8 @@
 # Carga de los datos del problema
-setwd("data")
-load("data.Rdata")
-setwd("..")
+load("data/data.Rdata")
+load("models/maxentFit.Rdata")
+load("models/svmFit.Rdata")
+load("models/ngramFit.Rdata")
 #badwords <- read.csv(file = "badwordsL.csv",header = F)
 #badwords1 <- read.csv(file = "badwords.csv",header = F)
 #badwords1 <- as.character(badwords1$V1)

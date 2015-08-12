@@ -1,0 +1,17 @@
+{
+    "contents" : "# Carga de los datos del problema\nload(\"data/data.Rdata\")\nload(\"models/maxentFit.Rdata\")\nload(\"models/svmFit.Rdata\")\nload(\"models/ngramFit.Rdata\")\n#badwords <- read.csv(file = \"badwordsL.csv\",header = F)\n#badwords1 <- read.csv(file = \"badwords.csv\",header = F)\n#badwords1 <- as.character(badwords1$V1)\n#badwords <- as.character(badwords$V1)\n#badwords <- c(badwords,\"idiot\",\"fucker\",\"fagged\",\"faggod\",\"pussy\",\"cocksucker\",\"sucker\",\"toy\",\"clawn\",\"stupid\",\"jerk\",\"slut\",\"whore\",\"homo\",\"jizz\",\"bastard\",\"bimbo\",\"psycho\",\"tool\",\"weirdo\",\"uneducated\",badwords1)\n#badwords<- unique(badwords)\n## @knitr end_chunk",
+    "created" : 1439349613823.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "2254559219",
+    "id" : "92D7184B",
+    "lastKnownWriteTime" : 1439359521,
+    "path" : "C:/Users/wilmer g/Desktop/DM/WarmChat/load.R",
+    "project_path" : "load.R",
+    "properties" : {
+    },
+    "relative_order" : 7,
+    "source_on_save" : false,
+    "type" : "r_source"
+}

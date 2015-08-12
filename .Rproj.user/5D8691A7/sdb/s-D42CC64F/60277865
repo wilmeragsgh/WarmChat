@@ -1,0 +1,17 @@
+{
+    "contents" : "cleanComm<-function(word){\n  \n\tenc2utf8(word)\n  \n  ## @knitr removing_reps\n  gsub(\"[:alnum:]{2,}\",\"\\\\1\",word)\n  \n  ## @knitr isolating_punc\n  gsub(\",\",\" , \",word)\n  gsub(\".\",\" . \",word)\n  gsub(\"?\",\" ? \",word)\n  \n  ## @knitr numstolett\n  gsub(\"1\",\"i\",word)\n  gsub(\"5\",\"s\",word)\n  gsub(\"4\",\"for\",word)\n  gsub(\"1\",\"i\",word)\n  gsub(\"&\",\"and\",word)\n  gsub(\"$\",\"s\",word)\n  gsub(\"0\",\"o\",word)\n  \n    \n  ## @knitr to_lowering\n  word<- tolower(word)\n\n  ## @knitr removing_punctuations\n  punctuseless<- c(\"!\",\" \\\"\", \"#\", \"$\", \"\\%\" ,\"\\&\",\"\\'\",\"(\", \")\",\"*\",\"+\",\"-\", \"/\",\":\",\";\",\"<\",\"=\", \">\", \"@\" ,\"[\" ,\"\\\\\" ,\"]\", \"^\",\"_\", \"`\" ,\"{\" ,\"|\" ,\"}\",\"~\")\n  for(i in punctuseless){\n    gsub(i,\"\",word)\n  }\n  \n  ## @knitr removing_number\n  word <- removeNumbers(word)\n\n  ## @knitr removing_whitespaces\n  wordn <- stripWhitespace(word)\n\n  return(as.character(wordn))\n}\n\n# Preprocesamiento de los datos \n#cleanSet<- function(word){\n  \n  ## @knitr encoding_input\n#  enc2utf8(word)\n  \n  ## @knitr removing_html\n#  gsub(\"<.*?>\", \"\", word)\n  \n  ## @knitr removing_urls\n#  gsub(\"http[[:alnum:][:punct:]]*\", \"\", word)\n  \n  ## @knir removing_rep\n#  word <- paste(rle(strsplit(word, \"\")[[1]])$values, collapse=\"\")\n  \n  ## @knitr to_lowering\n#  word<- tolower(word)\n  \n  ## @knitr removing_punctuations\n#  word<- removePunctuation(word)\n  \n  ## @knitr removing_number\n#  word <- removeNumbers(word)\n  \n  ## @knitr removing_whitespaces\n#  wordn <- stripWhitespace(word)\n  \n#  return(as.character(wordn))\n#}\n\n## Definicion de una funcion encargada de generar una arreglo con las palabras pertencientes al mismo comentario\nsplitting <-function(data){\n  val <- matrix()\n  j <- 1\n  for(i in data){\n    val <- unlist(strsplit(as.character(i), \"[ ]\"))    \n    j <- j+1\n  }\n  val\n}\n## @knitr end_chunk\n",
+    "created" : 1439327279455.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "232905779",
+    "id" : "60277865",
+    "lastKnownWriteTime" : 1439362544,
+    "path" : "C:/Users/wilmer g/Desktop/DM/WarmChat/clean.R",
+    "project_path" : "clean.R",
+    "properties" : {
+    },
+    "relative_order" : 3,
+    "source_on_save" : false,
+    "type" : "r_source"
+}

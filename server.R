@@ -1,7 +1,6 @@
 #source("libs.R")
 source("load.R")
 source("clean.R")
-source("models/ngram_model.R")
 
 # Globally define a place where all users can share some reactive data.
 vars <- reactiveValues(chat=NULL, users=NULL)
@@ -83,11 +82,20 @@ shinyServer(function(input, output, session) {
     isolate({
     	# important code
     	note <- bigram_predict(input$entry)
-
     	if(note==1){
     		res <- "flame"
-    	}else{
-    		res <- ""
+    	} else {
+    	  note1 <- maxent_predict(input$entry)
+    	  if(note1 ==1){
+    	    res <- "flame"
+    	  } else {
+    	    note2 <- svm_predict(input$entry)
+    	    if(note2 ==1){
+    	      res <- "flame"
+    	    } else {
+    	      res <- ""
+    	    }
+    	  }
     	}
     	# important code above
     	# Add the current entry to the chat log.
