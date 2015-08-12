@@ -4,20 +4,65 @@ RVersion: 3.2.0
 Repos: CRAN=https://cran.rstudio.com/,
     CRANextra=http://www.stats.ox.ac.uk/pub/RWin
 
+Package: NLP
+Source: CRAN
+Version: 0.1-8
+Hash: 06fece1966c1a9ff581c6806c0dac7dc
+
 Package: R6
 Source: CRAN
 Version: 2.1.0
 Hash: a09c7e41c29b376d6443da7fc5b9d763
+
+Package: RTextTools
+Source: CRAN
+Version: 1.4.2
+Hash: d51af1046364f8a0f0127172b1adaad3
+Requires: SparseM, caTools, e1071, glmnet, ipred, maxent, randomForest,
+    tau, tm, tree
 
 Package: Rcpp
 Source: CRAN
 Version: 0.11.6
 Hash: 193916618dce89b287517f457de8fa8b
 
+Package: SparseM
+Source: CRAN
+Version: 1.6
+Hash: 7c99801b85f7fee3cc06790120ef1be4
+
+Package: bitops
+Source: CRAN
+Version: 1.0-6
+Hash: 67d0775189fd0041d95abca618c5c07e
+
+Package: caTools
+Source: CRAN
+Version: 1.17.1
+Hash: 97cb6f6293cd18d17df77a6383cc6763
+Requires: bitops
+
 Package: digest
 Source: CRAN
 Version: 0.6.8
 Hash: de202f956596a476d09304e3a2ebf1e5
+
+Package: e1071
+Source: CRAN
+Version: 1.6-4
+Hash: 40d39393ff947247ea4347a53ffa7e73
+
+Package: foreach
+Source: CRAN
+Version: 1.4.2
+Hash: c306afbbf5cc2608170bc7205bf58bea
+Requires: iterators
+
+Package: glmnet
+Source: CRAN
+Version: 2.0-2
+Hash: bce976ec81989e5a08974dc01d8d3d08
+Requires: foreach
 
 Package: htmltools
 Source: CRAN
@@ -31,26 +76,86 @@ Version: 1.3.2
 Hash: 2313c5269a97eddd06e93ed977eb5478
 Requires: Rcpp
 
+Package: ipred
+Source: CRAN
+Version: 0.9-5
+Hash: 08df24d98cd6a9b4cba45951f626fff2
+Requires: prodlim
+
+Package: iterators
+Source: CRAN
+Version: 1.0.7
+Hash: 5b4df529141f993389b8fb24d56fe531
+
 Package: jsonlite
 Source: CRAN
 Version: 0.9.16
 Hash: 24d362a166a96ac1969e64ede522c717
+
+Package: lava
+Source: CRAN
+Version: 1.4.1
+Hash: b57807f7b72118720c97d85236129b57
+Requires: numDeriv
+
+Package: maxent
+Source: CRAN
+Version: 1.3.3.1
+Hash: 780d39d754845047ba6650b6f8704cba
+Requires: Rcpp, SparseM, tm
 
 Package: mime
 Source: CRAN
 Version: 0.3
 Hash: 629133973445ad75e5438a2bb6b05c17
 
+Package: numDeriv
+Source: CRAN
+Version: 2014.2-1
+Hash: e83415bd42223413d7cda4a122175043
+
 Package: packrat
 Source: CRAN
 Version: 0.4.4
 Hash: aed7d17407538df551a57caf6289c8bf
+
+Package: prodlim
+Source: CRAN
+Version: 1.5.1
+Hash: 8a4f07e8bc6f94d2be350ed6be21c2f6
+Requires: lava
+
+Package: randomForest
+Source: CRAN
+Version: 4.6-10
+Hash: a82c56791dbc0aa9a33272cd83aadf81
 
 Package: shiny
 Source: CRAN
 Version: 0.12.1
 Hash: b0066db774f42c02416c5e2d49cd1a15
 Requires: R6, digest, htmltools, httpuv, jsonlite, mime, xtable
+
+Package: slam
+Source: CRAN
+Version: 0.1-32
+Hash: bc3501cd4badda02e5be7837847c887d
+
+Package: tau
+Source: CRAN
+Version: 0.0-18
+Hash: 513eb585143b08570c440f8947224c97
+
+Package: tm
+Source: CRAN
+Version: 0.6-2
+Hash: 69b73ead3c7aeddd2b2cab86c80ee85c
+Requires: NLP, slam
+
+Package: tree
+Source: CRAN
+Version: 1.0-35
+Hash: d75177dfe48a7a3eefdf5f80022751b7
 
 Package: xtable
 Source: CRAN

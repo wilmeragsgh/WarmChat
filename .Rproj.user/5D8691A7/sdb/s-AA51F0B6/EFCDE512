@@ -1,0 +1,17 @@
+{
+    "contents" : "bigram_predict <- function(comm){\n\tyou_var <-c(\"you\",\"your\",\"ur\",\"u\",\"youre\")\n\tno_var <- c(\"not\",\"no\",\"dont\",\"arent\")\n\n\tcomm <- cleanComm(comm)\n\tcomm <- splitting(comm)\n\t\n\tif(sum(comm %in% no_var)>0){\n\t\tno_pos <- min(which(comm %in% no_var))\n\t\tcomm[no_pos]<-\"not\"\n\t\tfor(i in (no_pos+1):length(comm)){\n\t\t\tcomm[i] <- paste(comm[no_pos],comm[i],sep=\"-\")\n\t\t}\n\t}\n\tinsult <- 0\n\tyou_badword<- paste(\"you\",badwords,sep= \"-\")\n\t\n\tif(sum(comm %in% you_var)>0){\n\t\tyou_pos <- min(which(comm %in% you_var))\n\t\tcomm[you_pos]<-\"you\"\n\t\tfor(i in (you_pos+1):length(comm)){\n\t\t\tcomm[i] <- paste(comm[you_pos],comm[i],sep=\"-\")\n\t\t}\n\t\tif(sum(comm %in% you_badword)>0){\n\t\t\tinsult <- insult + 1\n\t\t}\n\t}\n\t\n\tif(sum(comm %in% badwords)>0){\n\t\tinsult <- insult + 1\n\t}\n\t\n\tif(insult>0){\n\t\tnote <- 1\n\t}else{\n\t\tnote <- 0\n\t}\n\t\n\tnote\n}\n# r <- c()\n# for(i in 1:length(train$Comment)){\n#\t r[i]=bigram_predict(as.character(train$Comment[i]))\n# }\n# train1 <-cbind(train,bigram =r)\n# table(train1$Insult,train1$bigram)\n# library(\"caret\")\n# confusionMatrix(train1$Insult,train1$bigram)",
+    "created" : 1439328886350.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "2377410583",
+    "id" : "EFCDE512",
+    "lastKnownWriteTime" : 1439333087,
+    "path" : "C:/Users/wilmer g/Desktop/DM/WarmChat/models/ngram_model.R",
+    "project_path" : "models/ngram_model.R",
+    "properties" : {
+    },
+    "relative_order" : 5,
+    "source_on_save" : false,
+    "type" : "r_source"
+}

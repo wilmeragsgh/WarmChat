@@ -38,12 +38,11 @@ bigram_predict <- function(comm){
 	
 	note
 }
-
-#train1 <-cbind(train,bigram =r)
-#r<- c()
-#for(i in 1:length(train$Comment)){
-#	r[i]=bigram(as.character(train$Comment[i]))
-#}
-#table(train1$Insult,train1$bigram)
+# r <- c()
+# for(i in 1:length(train$Comment)){
+#	 r[i]=bigram_predict(as.character(train$Comment[i]))
+# }
+# train1 <-cbind(train,bigram =r)
+# table(train1$Insult,train1$bigram)
 # library("caret")
-# confusionMatrix(train$Insult,train$bigram)
+# confusionMatrix(train1$Insult,train1$bigram)
