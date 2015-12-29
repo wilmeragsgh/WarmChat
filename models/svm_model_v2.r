@@ -16,3 +16,4 @@ svm_predict_v2 <- function(txt){
 }
 
 ?factor
+svm_predict_v2('love')

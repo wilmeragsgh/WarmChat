@@ -85,16 +85,17 @@ shinyServer(function(input, output, session) {
 #    	if(note==1){
 #    		res <- "flame"
 #    	} else {
-#    	  note1 <- maxent_predict(input$entry)
-#    	  if(note1 ==1){
-#    	    res <- "flame"
-#    	  } else {
-    	    note2 <- svm_predict_v2(input$entry)
-    	    if(note2 ==1){
+    	  note <- maxent_predict(input$entry,0.5)
+    	  if(note ==1){
+    	    res <- "flame"
+    	  } else {
+    	    note <- svm_predict_v2(input$entry)
+    	    if(note == 1){
     	      res <- "flame"
     	    } else {
     	      res <- ""
     	    }
+    	   }
 #    	  }
 #    	}
     	# important code above
@@ -114,7 +115,7 @@ shinyServer(function(input, output, session) {
                           tags$abbr(title=Sys.time(), sessionVars$username)
                         ),
                         ": ",
-                        tagList(input$entry),tags$span(class="note"," ",note2)))}
+                        tagList(input$entry),tags$span(class="note"," ",res)))}
     })
     # Clear out the text entry field.
     updateTextInput(session, "entry", value="")
