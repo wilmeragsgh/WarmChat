@@ -1,15 +1,11 @@
 cleanComm<-function(word){
-  
 	enc2utf8(word)
-  
   ## @knitr removing_reps
   gsub("[:alnum:]{2,}","\\1",word)
-  
   ## @knitr isolating_punc
   gsub(","," , ",word)
   gsub("."," . ",word)
   gsub("?"," ? ",word)
-  
   ## @knitr numstolett
   gsub("1","i",word)
   gsub("5","s",word)
@@ -18,23 +14,18 @@ cleanComm<-function(word){
   gsub("&","and",word)
   gsub("$","s",word)
   gsub("0","o",word)
-  
-    
   ## @knitr to_lowering
   word<- tolower(word)
 
   ## @knitr removing_punctuations
-  punctuseless<- c("!"," \"", "#", "$", "\%" ,"\&","\'","(", ")","*","+","-", "/",":",";","<","=", ">", "@" ,"[" ,"\\" ,"]", "^","_", "`" ,"{" ,"|" ,"}","~")
+  punctuseless<- c("!"," \"", "#", "$", "\\%" ,"\\&","\'","\\(", ")","*","+","-", "/",":",";","<","=", ">", "@" ,"\\[","\\]", "^","_", "`" ,"\\{" ,"\\|" ,"\\}","~")
   for(i in punctuseless){
     gsub(i,"",word)
   }
-  
   ## @knitr removing_number
   word <- removeNumbers(word)
-
   ## @knitr removing_whitespaces
   wordn <- stripWhitespace(word)
-
   return(as.character(wordn))
 }
 

@@ -37,7 +37,7 @@
 
 ### Makes corpora
 # Function to predict a comment ~ it needs the dtm used to calculate the max-ent model and the max-ent model itself
-maxent_predict <-function(comm){
+maxent_predict <-function(comm,prob){
   ### Training model
   #corpus <- Corpus(VectorSource(train$Comment))
   
@@ -62,7 +62,7 @@ maxent_predict <-function(comm){
   resultModel <- predict(modelMAXENT, predSparse[1,])
   result <- as.numeric(resultModel[,3])
   
-  if(result > 0.9){
+  if(result >= prob){
     return(1)
   } else {
     return(0)

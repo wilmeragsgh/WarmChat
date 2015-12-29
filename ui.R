@@ -1,6 +1,6 @@
 library(shiny)
 
-shinyUI( navbarPage("Data Mining Project",
+shinyUI( navbarPage("Text Mining Project",
   tabPanel("Chat Room",
   bootstrapPage(
     # We'll add some custom CSS styling -- totally optional

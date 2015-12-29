@@ -15,7 +15,7 @@ createMatrix <- function (textColumns, language = "english", minDocFreq = 1,
                           ngramLength = 1, originalMatrix = NULL, removeNumbers = FALSE, 
                           removePunctuation = TRUE, removeSparseTerms = 0, removeStopwords = TRUE, 
                           stemWords = FALSE, stripWhitespace = TRUE, toLower = TRUE, 
-                          weighting = weightTf) 
+                          weighting = 'weightTf') 
 {
   stem_words <- function(x) {
     split <- strsplit(x, " ")
