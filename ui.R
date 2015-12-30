@@ -4,11 +4,11 @@ shinyUI( navbarPage("Text Mining Project",
   tabPanel("Chat Room",
   bootstrapPage(
     # We'll add some custom CSS styling -- totally optional
-    includeCSS("app/shinychat.css"),
+    includeCSS("configuration/shinychat.css"),
     
     # And custom JavaScript -- just to send a message when a user hits "enter"
     # and automatically scroll the chat window for us. Totally optional.
-    includeScript("app/sendOnEnter.js"),
+    includeScript("configuration/sendOnEnter.js"),
     
     div(
       # Setup custom Bootstrap elements here to define a new layout
@@ -18,10 +18,15 @@ shinyUI( navbarPage("Text Mining Project",
           tags$head(tags$title("WarmChat")),
           
           # Create the header
-          div(class="span6", style="padding: 10px 0px;",
+          div(class="span6",
               h1("WarmChat"), 
-              h4("Friendly than IRC...")
-          ), div(class="span6", id="play-nice",
+              h4("Friendly than IRC...")),
+          div(class = 'span7',
+          checkboxGroupInput("which_model", "Actives classifiers:",
+                             c("SVM" = "svm",
+                               "Maxent" = "maxent",
+                               "Empirical bigram" = "bigram"),inline = T)),
+          div(class="span6", id="play-nice",
             "Be a decent human being."
           )
           
@@ -35,12 +40,11 @@ shinyUI( navbarPage("Text Mining Project",
           
           # Create the bottom bar to allow users to chat.
           fluidRow(
-            div(class="span10",
-              textInput("entry", "")
+            div(class="span10", style= 'padding-left: 2.5%;',
+                textInput("entry", "")
             ),
-            div(class="span2 center",
-                actionButton("send", "Send")
-            )
+            div(class = 'span10', style = 'margin-left:34.5%;',
+                actionButton("send", "Send"))
           )
         ),
         # The right sidebar

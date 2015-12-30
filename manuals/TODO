@@ -1,0 +1,3 @@
+    - generalizar container para todos los modelos.
+    - optimizar trainSize para mejorar precision.
+    - Mejorar el stemming

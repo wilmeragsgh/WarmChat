@@ -1,6 +1,5 @@
-source("libs.R")
-source("load.R")
-source("clean.R")
+source("source/library.R")
+source("source/load_cache.R")
 
 # Globally define a place where all users can share some reactive data.
 vars <- reactiveValues(chat=NULL, users=NULL)
@@ -85,17 +84,23 @@ shinyServer(function(input, output, session) {
 #    	if(note==1){
 #    		res <- "flame"
 #    	} else {
-    	  note <- maxent_predict(input$entry,0.5)
-    	  if(note ==1){
-    	    res <- "flame"
-    	  } else {
-    	    note <- svm_predict_v2(input$entry)
-    	    if(note == 1){
-    	      res <- "flame"
-    	    } else {
-    	      res <- ""
-    	    }
-    	   }
+        predictions <- c()
+        for(i in input$which_model){
+          if(i == 'svm'){
+            predictions <- c(predictions,svm_predict(input$entry))
+          }
+          if(i == 'maxent'){
+            predictions <- c(predictions,maxent_predict(input$entry))
+          }
+          if(i == 'bigram'){
+            predictions <- c(predictions,bigram_predict(input$entry))
+          }
+        }
+      if (sum(predictions) > 0){
+        res <- 'flame'
+      } else {
+        res <- ''
+      }
 #    	  }
 #    	}
     	# important code above
@@ -128,7 +133,7 @@ shinyServer(function(input, output, session) {
       vars$chat <- vars$chat[(length(vars$chat)-500):(length(vars$chat))]
     }
     # Save the chat object so we can restore it later if needed.
-    saveRDS(vars$chat, "app/chat.Rds")
+    saveRDS(vars$chat, "configuration/chat.Rds")
     
     # Pass the chat log through as HTML
     HTML(vars$chat)
