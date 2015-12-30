@@ -42,7 +42,7 @@ shinyUI( navbarPage("Text Mining Project",
           # Create the bottom bar to allow users to chat.
           fluidRow(
             div(class="span10", style= 'padding-left: 2.5%;',
-                textInput("entry", "")
+                textInput("entry", "",value = 'Please see \'About\' before...')
             ),
             div(class = 'span10', style = 'margin-left:34.5%;',
                 actionButton("send", "Send"))
@@ -68,10 +68,32 @@ shinyUI( navbarPage("Text Mining Project",
       )
     )
   )
-  ),tabPanel("What we do", 
+  ),tabPanel("About",
+             div(
              navlistPanel(
-               "Information",
+               tabPanel("Recommendations", 
+                        div(
+                        h3("Remember that:"),
+                        tags$li("Every model you check vote, but it's only 
+               				         necessarily that one say your flaming."),
+                        tags$li("We just understand english(for now)."),
+                        tags$li("We don't get the question structure so
+               				         if you ment some, we get just the words that 
+               				         contains(for now)."),
+                        tags$li("We don't understand sarcasm."),
+                        tags$li("The models we use need at least 4 different
+                                words per message."),
+                        tags$li("We don't recommend insulting but
+               				         if going to do it, do it well(so we classify 
+               				         better)."),
+                        tags$li("We clean text before classify. See \'Cleaning\'
+                                ."),
+                        tags$li("We base on particular data for classifications.
+                                See \'Training data info\'."),
+                        class = 'tabsinfo'
+               )),
                tabPanel("Cleaning",
+                        div(
                         h3("This is what we do for cleaning text(in order):"),
                         tags$li("Remove urls."),
                         tags$li("Remove repeated characters, 
@@ -82,27 +104,18 @@ shinyUI( navbarPage("Text Mining Project",
                         tags$li('Tolower text.'),
                         tags$li('Remove punctuation.'),
                         tags$li('Remove numbers.'),
-                        tags$li('Remove multiple spaces.')
-               ),
+                        tags$li('Remove multiple spaces.'),
+                        class = 'tabsinfo'
+               )),
                tabPanel("Training data info",
+                        div(
                         h3("Notes"),
                         tags$li("We use the dataset provided in this page: \n
                                 https://www.kaggle.com/c/detecting-insults-in-
-                                social-commentary for training our models")
-               ),"-----",
-               tabPanel("Recommendations",
-               				 h3("Remember that:"),
-               				 tags$li("Every model you check vote, but it's only 
-               				         necessarily that one say your flaming"),
-               				 tags$li("We just understand english(for now)"),
-               				 tags$li("We don't get the question structure so
-               				         if you ment some, we get just the words that 
-               				         contains(for now)"),
-               				 tags$li("We don't understand sarcasm, like smarts"),
-               				 tags$li("We don't recommend insulting but
-               				         if going to do it, do it well(so we classify 
-               				         better)")
-               )
+                                social-commentary for training our models."),
+                        class = 'tabsinfo'
+               ))
+             ),class = 'tabs'
              )
 ))
 )

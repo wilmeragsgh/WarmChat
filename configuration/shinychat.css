@@ -55,3 +55,11 @@ html, body {
     display:inline-block;
     
 }
+
+.tabs {
+  margin-left:1%;
+}
+.tabsinfo {
+  margin-top:-4%;
+  margin-left:1%;
+}

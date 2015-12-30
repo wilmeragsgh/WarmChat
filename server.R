@@ -80,34 +80,30 @@ shinyServer(function(input, output, session) {
       return()
     }
     isolate({
-    	# important code
-#    	note <- bigram_predict(input$entry)
-#    	if(note==1){
-#    		res <- "flame"
-#    	} else {
-        predictions <- c()
-        txt <- cleanComm(input$entry)
-        for(i in input$which_model){
-          if(i == 'svm'){
-            predictions <- c(predictions,svm_predict(txt))
-          }
-          if(i == 'maxent'){
-            predictions <- c(predictions,maxent_predict(txt))
-          }
-          if(i == 'tree'){
-            predictions <- c(predictions,tree_predict(txt))
-          }
-          if(i == 'forests'){
-            predictions <- c(predictions,rf_predict(txt))
-          }
+    	# important code:
+      # checking check buttoms:
+      predictions <- c()
+      txt <- cleanComm(input$entry)
+      for(i in input$which_model){
+        if(i == 'svm'){
+          predictions <- c(predictions,svm_predict(txt))
         }
+        if(i == 'maxent'){
+          predictions <- c(predictions,maxent_predict(txt))
+        }
+        if(i == 'tree'){
+          predictions <- c(predictions,tree_predict(txt))
+        }
+        if(i == 'forests'){
+          predictions <- c(predictions,rf_predict(txt))
+        }
+      }
+      # any classifier say it was a flame:
       if (sum(predictions) > 0){
         res <- 'flame'
       } else {
         res <- ''
       }
-#    	  }
-#    	}
     	# important code above
     	# Add the current entry to the chat log.
       if(sessionVars$username == ""){
