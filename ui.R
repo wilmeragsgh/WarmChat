@@ -25,7 +25,8 @@ shinyUI( navbarPage("Text Mining Project",
           checkboxGroupInput("which_model", "Actives classifiers:",
                              c("SVM" = "svm",
                                "Maxent" = "maxent",
-                               "Empirical bigram" = "bigram"),inline = T)),
+                               "Decision Trees" = "tree",
+                               "Random Forest" = "forests"),inline = T)),
           div(class="span6", id="play-nice",
             "Be a decent human being."
           )
@@ -59,27 +60,48 @@ shinyUI( navbarPage("Text Mining Project",
           # Create a spot for a dynamic UI containing the list of users.
           uiOutput("userList"),
           tags$hr(),
-          helpText(HTML("<p>Built using R & <a href = \"http://rstudio.com/shiny/\">Shiny</a>.<p>Source code available <a href =\"https://github.com/wilmeragsgh/Flame_Detector_Chat\">on GitHub</a>."))
+          helpText(HTML("<p>Built using R & <a href = \"http://rstudio.com/shiny
+                        /\">Shiny</a>.<p>Source code available on <a href =\"
+                        https://github.com/wilmeragsgh/WarmChat/tree/
+                        text_mining_assignament\">GitHub</a>."))
         )
       )
     )
   )
   ),tabPanel("What we do", 
              navlistPanel(
-               "Tasks",
+               "Information",
                tabPanel("Cleaning",
-                        h3("To-do's"),tags$li("Tolowering all words"),tags$li("Removing punctuations marks"),tags$li("Removing numbers"),tags$li("Stripping white spaces")
+                        h3("This is what we do for cleaning text(in order):"),
+                        tags$li("Remove urls."),
+                        tags$li("Remove repeated characters, 
+                                it means we transform: good -> god... Sorry."),
+                        tags$li("Isolate . , and ? from text."),
+                        tags$li("Transform numbers or signs that maybe letters, 
+                                for example: h1 -> hi or & -> and."), 
+                        tags$li('Tolower text.'),
+                        tags$li('Remove punctuation.'),
+                        tags$li('Remove numbers.'),
+                        tags$li('Remove multiple spaces.')
                ),
-               tabPanel("Information Retrieval",
-                        h3("To-do's"),tags$li("Definning the necessarily datasets for the")
-               ),
-               tabPanel("Classification",
-                        h3("To-do's"),tags$li("Creating bi-grams based on seconds pronouns and negations-words")
-                        
+               tabPanel("Training data info",
+                        h3("Notes"),
+                        tags$li("We use the dataset provided in this page: \n
+                                https://www.kaggle.com/c/detecting-insults-in-
+                                social-commentary for training our models")
                ),"-----",
-               tabPanel("Limits",
-               				 h3("Some Recommendations"),tags$li("Our first(for documentations) limits is the language,so we can understand only english(for now)"),tags$li("We don't get the question structure so if you ment some, we get just the words that contains(for now)"),tags$li("Our model it's a SUPER-SARCASM_DETECTOR(not). . . So we classify only literality"),tags$li("Although we don't recommend insulting if going to do it, do it well(so we classify better)")
-               				 
+               tabPanel("Recommendations",
+               				 h3("Remember that:"),
+               				 tags$li("Every model you check vote, but it's only 
+               				         necessarily that one say your flaming"),
+               				 tags$li("We just understand english(for now)"),
+               				 tags$li("We don't get the question structure so
+               				         if you ment some, we get just the words that 
+               				         contains(for now)"),
+               				 tags$li("We don't understand sarcasm, like smarts"),
+               				 tags$li("We don't recommend insulting but
+               				         if going to do it, do it well(so we classify 
+               				         better)")
                )
              )
 ))

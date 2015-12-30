@@ -3,6 +3,10 @@ train.container.svm <- create_container(train.dtm,svm.label.fixed,trainSize = 1:
 svm.model <- train_model(train.container.svm,'SVM',kernel = 'linear',cost = 1)
 c_matrix <- edit(create_matrix) ## modify line 42 and replace 'Acronym' with 'acronym':
 
+#obj <- tune.svm(Species~., data = iris, 
+#                cost = 2^(2:8), 
+#                kernel = "linear") 
+
 svm_predict <- function(txt){
   test.data <- list(txt)
   test.matrix <- c_matrix(test.data, originalMatrix=train.dtm)

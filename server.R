@@ -50,7 +50,8 @@ shinyServer(function(input, output, session) {
         # Note the change in the chat log
         vars$chat <<- c(vars$chat, paste0(linePrefix(),
                                           tags$span(class="user-change",
-                                                    paste0("Ha llegado:","\"", input$user, "\""))))
+                                                    paste0("Ha llegado:","\"", 
+                                                           input$user, "\""))))
         
         # Now update with the new one
         sessionVars$username <- input$user
@@ -85,15 +86,19 @@ shinyServer(function(input, output, session) {
 #    		res <- "flame"
 #    	} else {
         predictions <- c()
+        txt <- cleanComm(input$entry)
         for(i in input$which_model){
           if(i == 'svm'){
-            predictions <- c(predictions,svm_predict(input$entry))
+            predictions <- c(predictions,svm_predict(txt))
           }
           if(i == 'maxent'){
-            predictions <- c(predictions,maxent_predict(input$entry))
+            predictions <- c(predictions,maxent_predict(txt))
           }
-          if(i == 'bigram'){
-            predictions <- c(predictions,bigram_predict(input$entry))
+          if(i == 'tree'){
+            predictions <- c(predictions,tree_predict(txt))
+          }
+          if(i == 'forests'){
+            predictions <- c(predictions,rf_predict(txt))
           }
         }
       if (sum(predictions) > 0){
@@ -109,10 +114,12 @@ shinyServer(function(input, output, session) {
         vars$chat <<- c(vars$chat, 
                         paste0(linePrefix(),
                                tags$span(class="username",
-                                         tags$abbr(title=Sys.time(), "Anonymous")
+                                         tags$abbr(title=Sys.time(), 
+                                                   "Anonymous")
                                ),
                                ": ",
-                               tagList(input$entry),tags$span(class="note"," ",res)))
+                               tagList(input$entry),tags$span(class="note"," ",
+                                                              res)))
       }else {
       vars$chat <<- c(vars$chat, 
                       paste0(linePrefix(),
